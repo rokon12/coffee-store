@@ -1,0 +1,31 @@
+<server description="defaultServer">
+    <featureManager>
+        <feature>restfulWS-4.0</feature>
+        <feature>cdi-4.1</feature>
+        <feature>jsonb-3.0</feature>
+        <feature>jsonp-2.1</feature>
+        <feature>data-1.0</feature>
+        <feature>persistence-3.2</feature>
+    </featureManager>
+
+    <basicRegistry id="defaultBasicRegistry" realm="BasicRealm">
+        <user name="username" password="password" />
+    </basicRegistry>
+
+    <keyStore id="defaultKeyStore" password="password" />
+
+    <httpEndpoint id="defaultHttpEndpoint" host="*" httpPort="9080" httpsPort="9443" />
+
+    <webApplication location="coffee-store.war" contextRoot="/"/>
+
+    <logging traceSpecification="*=info:org.eclipse.persistence.sql=finest"/>
+
+    <library id="derbyJDBCLib">
+        <fileset dir="${shared.resource.dir}/" includes="derby*.jar" />
+    </library>
+
+    <dataSource id="defaultDatabaseStore" jndiName="jdbc/coffeeDataSource">
+        <jdbcDriver libraryRef="derbyJDBCLib" />
+        <properties.derby.embedded databaseName="coffee" createDatabase="create" />
+    </dataSource>
+</server>
